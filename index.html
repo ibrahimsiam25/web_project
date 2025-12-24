@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Phone Book</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="Style/style.css" />
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="Resource/script.js"></script>
+</head>
+
+<body>
+
+    <section data-role="page" id="listPage">
+        <header data-role="header">
+            <h1>Contact List</h1>
+            <a href="#addPage" data-icon="plus" class="ui-btn-right">Add</a>
+        </header>
+
+        <article data-role="content">
+            <input type="search" id="filterInput" placeholder="Filter items">
+            <ul id="contactList" data-role="listview" data-inset="true" data-filter="true" data-input="#filterInput">
+            </ul>
+        </article>
+
+        <footer data-role="footer">
+            <h4>Contact List</h4>
+        </footer>
+    </section>
+
+    <section data-role="page" id="detailPage">
+        <header data-role="header">
+            <a href="#listPage" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+            <h1 id="detailName">Mona Abdo</h1>
+        </header>
+
+        <article data-role="content">
+            <div class="contact-detail">
+                <div class="contact-avatar">
+                    <img id="detailAvatar" src="Images/avatar.png" alt="Contact">
+                </div>
+                <div class="contact-actions">
+                    <a href="#" id="deleteBtn" data-icon="delete" data-role="button">Delete</a>
+                    <a href="#editPage" id="editBtn" data-icon="edit" data-role="button">Edit</a>
+                    <a href="#" id="callBtn" data-icon="phone" data-role="button">Call</a>
+                </div>
+            </div>
+        </article>
+
+        <footer data-role="footer">
+            <h4>Contact List</h4>
+        </footer>
+    </section>
+
+    <section data-role="page" id="addPage">
+        <header data-role="header">
+            <a href="#listPage" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+            <h1>New Contact</h1>
+        </header>
+
+        <article data-role="content">
+            <form id="addForm">
+                <label for="addName">Name</label>
+                <input type="text" id="addName" name="name" required>
+
+                <label for="addPhone">Phone</label>
+                <input type="tel" id="addPhone" name="phone" placeholder="(202) 555-5555" required>
+
+                <label for="addEmail">email</label>
+                <input type="email" id="addEmail" name="email" required>
+
+                <label>Gender:</label>
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <input type="radio" name="gender" id="addFemale" value="female" checked>
+                    <label for="addFemale">Female</label>
+                    <input type="radio" name="gender" id="addMale" value="male">
+                    <label for="addMale">Male</label>
+                </fieldset>
+
+                <a href="#" id="saveBtn" data-icon="check" data-role="button">Save</a>
+                <a href="#listPage" data-icon="delete" data-role="button">Cancel</a>
+            </form>
+        </article>
+
+        <footer data-role="footer">
+            <h4>Contact List</h4>
+        </footer>
+    </section>
+
+    <section data-role="page" id="editPage">
+        <header data-role="header">
+            <a href="#detailPage" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+            <h1>Edit Contact</h1>
+        </header>
+
+        <article data-role="content">
+            <form id="editForm">
+                <input type="hidden" id="editId">
+
+                <label for="editName">Name</label>
+                <input type="text" id="editName" name="name" required>
+
+                <label for="editPhone">Phone</label>
+                <input type="tel" id="editPhone" name="phone" placeholder="(202) 555-5555" required>
+
+                <label for="editEmail">email</label>
+                <input type="email" id="editEmail" name="email" required>
+
+                <label>Gender:</label>
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <input type="radio" name="editGender" id="editFemale" value="female">
+                    <label for="editFemale">Female</label>
+                    <input type="radio" name="editGender" id="editMale" value="male">
+                    <label for="editMale">Male</label>
+                </fieldset>
+
+                <a href="#" id="updateBtn" data-icon="check" data-role="button">Save</a>
+                <a href="#detailPage" data-icon="delete" data-role="button">Cancel</a>
+            </form>
+        </article>
+
+        <footer data-role="footer">
+            <h4>Contact List</h4>
+        </footer>
+    </section>
+
+    <section data-role="dialog" id="deleteDialog">
+        <header data-role="header">
+            <h1>Delete Contact?</h1>
+        </header>
+
+        <article data-role="content">
+            <p>Are you sure you want to delete this contact?</p>
+            <a href="#listPage" id="confirmDelete" data-role="button">Delete</a>
+            <a href="#detailPage" data-role="button">Cancel</a>
+        </article>
+    </section>
+
+</body>
+
+</html>

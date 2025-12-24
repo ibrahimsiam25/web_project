@@ -1,0 +1,92 @@
+.contact-detail {
+    text-align: center;
+    padding: 20px;
+}
+
+.contact-avatar {
+    margin: 20px auto;
+}
+
+.contact-avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+}
+
+.contact-actions {
+    margin-top: 30px;
+}
+
+.contact-actions a {
+    margin: 5px;
+}
+
+#contactList li {
+    position: relative;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.contact-avatar-small {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-name {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.contact-phone-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+form {
+    padding: 20px;
+}
+
+form label {
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+form input[type="text"],
+form input[type="tel"],
+form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+fieldset[data-role="controlgroup"] {
+    margin: 15px 0;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+#deleteDialog .ui-content p {
+    text-align: center;
+    font-size: 1.1em;
+    margin: 20px 0;
+}
