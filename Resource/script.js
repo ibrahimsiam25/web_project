@@ -52,7 +52,11 @@ function renderContactList() {
       "<h2>" +
       contact.name +
       "</h2>" +
-      "</a></li>";
+      "</a>" +
+      '<a href="#" class="call-contact" data-id="' +
+      contact.id +
+      '" data-icon="phone">Call</a>' +
+      "</li>";
     list.append(item);
   });
 
@@ -102,7 +106,22 @@ function findContact(id) {
 $(document).ready(function () {
   renderContactList();
 
+  $(document).on("click", ".call-contact", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var contactId = $(this).data("id");
+    var contact = findContact(contactId);
+
+    if (contact) {
+      alert("Calling " + contact.name + " at " + contact.phone);
+    }
+  });
+
   $(document).on("click", "#contactList a", function (e) {
+    if ($(this).hasClass("call-contact")) {
+      return;
+    }
+
     e.preventDefault();
     currentContactId = $(this).data("id");
     var contact = findContact(currentContactId);
@@ -160,7 +179,6 @@ $(document).ready(function () {
 
       $.mobile.changePage("#editPage");
 
-      // Refresh radio buttons after page change
       setTimeout(function () {
         $('input[name="editGender"]').checkboxradio("refresh");
       }, 100);
