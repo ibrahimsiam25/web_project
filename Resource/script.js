@@ -1,180 +1,227 @@
 var contacts = [
-    { id: 1, name: "Mona Abdo", phone: "(202) 555-0001", email: "mona@email.com", gender: "female" },
-    { id: 2, name: "Karim Ali", phone: "(202) 555-0002", email: "karim@email.com", gender: "male" },
-    { id: 3, name: "Mohamed Ali", phone: "(202) 555-0003", email: "mohamed@email.com", gender: "male" },
-    { id: 4, name: "Eman Ali", phone: "(202) 555-0004", email: "eman@email.com", gender: "female" }
+  {
+    id: 1,
+    name: "Mona Abdo",
+    phone: "(202) 555-0001",
+    email: "mona@email.com",
+    gender: "female",
+  },
+  {
+    id: 2,
+    name: "Karim Ali",
+    phone: "(202) 555-0002",
+    email: "karim@email.com",
+    gender: "male",
+  },
+  {
+    id: 3,
+    name: "Mohamed Ali",
+    phone: "(202) 555-0003",
+    email: "mohamed@email.com",
+    gender: "male",
+  },
+  {
+    id: 4,
+    name: "Eman Ali",
+    phone: "(202) 555-0004",
+    email: "eman@email.com",
+    gender: "female",
+  },
 ];
 
 var currentContactId = null;
 var nextId = 5;
 
 function getAvatarImage(gender) {
-    return gender === "female" ? "./Images/woman.png" : "./Images/man.png";
+  return gender === "female" ? "./Images/woman.png" : "./Images/man.png";
 }
 
 function renderContactList() {
-    var list = $('#contactList');
-    list.empty();
+  var list = $("#contactList");
+  list.empty();
 
-    contacts.forEach(function (contact) {
-        var avatar = getAvatarImage(contact.gender);
-        var item = '<li><a href="#detailPage" data-id="' + contact.id + '">' +
-            '<img src="' + avatar + '" class="contact-avatar-small">' +
-            '<h2>' + contact.name + '</h2>' +
-            '</a></li>';
-        list.append(item);
-    });
+  contacts.forEach(function (contact) {
+    var avatar = getAvatarImage(contact.gender);
+    var item =
+      '<li><a href="#detailPage" data-id="' +
+      contact.id +
+      '">' +
+      '<img src="' +
+      avatar +
+      '" class="contact-avatar-small">' +
+      "<h2>" +
+      contact.name +
+      "</h2>" +
+      "</a></li>";
+    list.append(item);
+  });
 
-    list.listview('refresh');
+  list.listview("refresh");
 }
 
 function validateForm(name, phone, email) {
-    if (!name || name.trim() === '') {
-        alert('Please enter a name');
-        return false;
-    }
+  if (!name || name.trim() === "") {
+    alert("Please enter a name");
+    return false;
+  }
 
-    if (!phone || phone.trim() === '') {
-        alert('Please enter a phone number');
-        return false;
-    }
+  if (!phone || phone.trim() === "") {
+    alert("Please enter a phone number");
+    return false;
+  }
 
-    var phonePattern = /^\(\d{3}\)\s\d{3}-\d{4}$/;
-    if (!phonePattern.test(phone)) {
-        alert('Phone format should be (XXX) XXX-XXXX');
-        return false;
-    }
+  var phonePattern = /^\(\d{3}\)\s\d{3}-\d{4}$/;
+  if (!phonePattern.test(phone)) {
+    alert("Phone format should be (XXX) XXX-XXXX");
+    return false;
+  }
 
-    if (!email || email.trim() === '') {
-        alert('Please enter an email');
-        return false;
-    }
+  if (!email || email.trim() === "") {
+    alert("Please enter an email");
+    return false;
+  }
 
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        alert('Please enter a valid email address');
-        return false;
-    }
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert("Please enter a valid email address");
+    return false;
+  }
 
-    return true;
+  return true;
 }
 
 function findContact(id) {
-    for (var i = 0; i < contacts.length; i++) {
-        if (contacts[i].id == id) {
-            return contacts[i];
-        }
+  for (var i = 0; i < contacts.length; i++) {
+    if (contacts[i].id == id) {
+      return contacts[i];
     }
-    return null;
+  }
+  return null;
 }
 
 $(document).ready(function () {
-    renderContactList();
+  renderContactList();
 
-    $(document).on('click', '#contactList a', function (e) {
-        e.preventDefault();
-        currentContactId = $(this).data('id');
-        var contact = findContact(currentContactId);
+  $(document).on("click", "#contactList a", function (e) {
+    e.preventDefault();
+    currentContactId = $(this).data("id");
+    var contact = findContact(currentContactId);
 
-        if (contact) {
-            $('#detailName').text(contact.name);
-            $('#detailAvatar').attr('src', getAvatarImage(contact.gender));
-            $.mobile.changePage('#detailPage');
-        }
-    });
+    if (contact) {
+      $("#detailName").text(contact.name);
+      $("#detailNameDisplay").text(contact.name);
+      $("#detailAvatar").attr("src", getAvatarImage(contact.gender));
+      $("#detailPhone").text(contact.phone);
+      $("#detailEmail").text(contact.email);
+      $.mobile.changePage("#detailPage");
+    }
+  });
 
-    $('#saveBtn').click(function (e) {
-        e.preventDefault();
+  $("#saveBtn").click(function (e) {
+    e.preventDefault();
 
-        var name = $('#addName').val();
-        var phone = $('#addPhone').val();
-        var email = $('#addEmail').val();
-        var gender = $('input[name="gender"]:checked').val();
+    var name = $("#addName").val();
+    var phone = $("#addPhone").val();
+    var email = $("#addEmail").val();
+    var gender = $('input[name="gender"]:checked').val();
 
-        if (validateForm(name, phone, email)) {
-            contacts.push({
-                id: nextId++,
-                name: name,
-                phone: phone,
-                email: email,
-                gender: gender
-            });
+    if (validateForm(name, phone, email)) {
+      contacts.push({
+        id: nextId++,
+        name: name,
+        phone: phone,
+        email: email,
+        gender: gender,
+      });
 
-            $('#addForm')[0].reset();
-            renderContactList();
-            $.mobile.changePage('#listPage');
-        }
-    });
+      $("#addForm")[0].reset();
+      renderContactList();
+      $.mobile.changePage("#listPage");
+    }
+  });
 
-    $('#editBtn').click(function (e) {
-        e.preventDefault();
-        var contact = findContact(currentContactId);
+  $("#editBtn").click(function (e) {
+    e.preventDefault();
+    var contact = findContact(currentContactId);
 
-        if (contact) {
-            $('#editId').val(contact.id);
-            $('#editName').val(contact.name);
-            $('#editPhone').val(contact.phone);
-            $('#editEmail').val(contact.email);
+    if (contact) {
+      $("#editId").val(contact.id);
+      $("#editName").val(contact.name);
+      $("#editPhone").val(contact.phone);
+      $("#editEmail").val(contact.email);
 
-            if (contact.gender === 'female') {
-                $('#editFemale').prop('checked', true).checkboxradio('refresh');
-            } else {
-                $('#editMale').prop('checked', true).checkboxradio('refresh');
-            }
+      if (contact.gender === "female") {
+        $("#editFemale").prop("checked", true);
+        $("#editMale").prop("checked", false);
+      } else {
+        $("#editMale").prop("checked", true);
+        $("#editFemale").prop("checked", false);
+      }
 
-            $.mobile.changePage('#editPage');
-        }
-    });
+      $.mobile.changePage("#editPage");
 
-    $('#updateBtn').click(function (e) {
-        e.preventDefault();
+      // Refresh radio buttons after page change
+      setTimeout(function () {
+        $('input[name="editGender"]').checkboxradio("refresh");
+      }, 100);
+    }
+  });
 
-        var id = $('#editId').val();
-        var name = $('#editName').val();
-        var phone = $('#editPhone').val();
-        var email = $('#editEmail').val();
-        var gender = $('input[name="editGender"]:checked').val();
+  $("#updateBtn").click(function (e) {
+    e.preventDefault();
 
-        if (validateForm(name, phone, email)) {
-            var contact = findContact(id);
+    var id = $("#editId").val();
+    var name = $("#editName").val();
+    var phone = $("#editPhone").val();
+    var email = $("#editEmail").val();
+    var gender = $('input[name="editGender"]:checked').val();
 
-            if (contact) {
-                contact.name = name;
-                contact.phone = phone;
-                contact.email = email;
-                contact.gender = gender;
+    if (validateForm(name, phone, email)) {
+      var contact = findContact(id);
 
-                renderContactList();
-                $.mobile.changePage('#detailPage');
-            }
-        }
-    });
+      if (contact) {
+        contact.name = name;
+        contact.phone = phone;
+        contact.email = email;
+        contact.gender = gender;
 
-    $('#deleteBtn').click(function (e) {
-        e.preventDefault();
-        $.mobile.changePage('#deleteDialog');
-    });
-
-    $('#confirmDelete').click(function (e) {
-        e.preventDefault();
-
-        for (var i = 0; i < contacts.length; i++) {
-            if (contacts[i].id == currentContactId) {
-                contacts.splice(i, 1);
-                break;
-            }
-        }
+        $("#detailName").text(contact.name);
+        $("#detailNameDisplay").text(contact.name);
+        $("#detailAvatar").attr("src", getAvatarImage(contact.gender));
+        $("#detailPhone").text(contact.phone);
+        $("#detailEmail").text(contact.email);
 
         renderContactList();
-        $.mobile.changePage('#listPage');
-    });
+        $.mobile.changePage("#detailPage");
+      }
+    }
+  });
 
-    $('#callBtn').click(function (e) {
-        e.preventDefault();
-        var contact = findContact(currentContactId);
+  $("#deleteBtn").click(function (e) {
+    e.preventDefault();
+    $.mobile.changePage("#deleteDialog");
+  });
 
-        if (contact) {
-            alert('Calling ' + contact.name + ' at ' + contact.phone);
-        }
-    });
+  $("#confirmDelete").click(function (e) {
+    e.preventDefault();
+
+    for (var i = 0; i < contacts.length; i++) {
+      if (contacts[i].id == currentContactId) {
+        contacts.splice(i, 1);
+        break;
+      }
+    }
+
+    renderContactList();
+    $.mobile.changePage("#listPage");
+  });
+
+  $("#callBtn").click(function (e) {
+    e.preventDefault();
+    var contact = findContact(currentContactId);
+
+    if (contact) {
+      alert("Calling " + contact.name + " at " + contact.phone);
+    }
+  });
 });
